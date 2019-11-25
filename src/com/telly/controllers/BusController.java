@@ -20,6 +20,7 @@ public class BusController {
 
 	@Autowired
 	BusService busService;
+
 	
 
 	@RequestMapping("/createtrip")
@@ -41,6 +42,28 @@ public class BusController {
 		busService.create(bus);
 
 		return "home";
+
+	}
+
+	@RequestMapping("/results")
+	public String leave(Model model, Principal principal) {
+
+		model.addAttribute("bus", new Bus());
+
+		return "results";
+	}
+	
+
+	@RequestMapping(value = "/resultsfrom", method = RequestMethod.GET)
+	public String leaveFrom(@Validated(FormValidationGroup.class) Bus bus, BindingResult result, Model model,
+			Principal principal) {
+
+		List<Bus> results = busService.getCity(bus.getLeaveFrom(), bus.getGoingTo(), bus.getDateLeave(),
+				bus.getDateReturn());
+		model.addAttribute("results", results);
+		System.out.println(results);
+
+		return "results";
 
 	}
 

@@ -20,4 +20,8 @@ public class BusService {
 		busDao.create(bus);
 	}
 	
+	public List<Bus> getCity(String leaveFrom, String goingTo, Date dateLeave, Date dateReturn){
+		return busDao.getCity(leaveFrom, goingTo, dateLeave, dateReturn);
+	}
+
 }
